@@ -1,5 +1,6 @@
-﻿@model string
-@{ Layout = null;}
+﻿@model IDictionary<string, string>
+@{ Layout = null; }
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body class="m-1 p-1">
-    Model data: @Model
+    <table class="table table-bordered table-sm table-striped">
+        <tr><th>Name</th><th>Value</th></tr>
+        @foreach (string key in Model.Keys)
+        {
+            <tr><td>@key</td><td>@Model[key]</td></tr>
+        }
+    </table>
 </body>
 </html>
