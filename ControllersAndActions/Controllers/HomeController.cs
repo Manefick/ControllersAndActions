@@ -30,6 +30,19 @@ namespace ControllersAndActions.Controllers
         //    byte[] content = Encoding.ASCII.GetBytes($"<html><body>{name} lives in {city}</body>");
         //    Response.Body.WriteAsync(content, 0, content.Length);
         //}
-        public IActionResult ReceiveForm(string name, string city) => new CustomHtmlResult { Content = $"{name} lives in {city}" };
+        [HttpPost]
+        public RedirectToActionResult ReceiveForm(string name, string city)
+        {//TempDaзволяет передавать даные мужду действиями сначала их нужно сохранить а потом достать
+            TempData["name"] = name;
+            TempData["city"] = city;
+            return RedirectToAction(nameof(Data));
+        }
+        public ViewResult Data()
+        {
+            string name = TempData["name"] as string;
+            string city = TempData["city"] as string;
+            return View("Result", $"{name} lives in {city}");
+        }
+        //public IActionResult ReceiveForm(string name, string city) => new CustomHtmlResult { Content = $"{name} lives in {city}" };
     }
 }
